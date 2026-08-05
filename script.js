@@ -3,6 +3,7 @@
 const numbers = document.querySelectorAll(".number");
 const display = document.querySelector("#display");
 const operadorBtn = document.querySelectorAll(".operator");
+const equals = document.querySelector("#equals");
 
 // VARIABLES --------------
 
@@ -31,6 +32,9 @@ function dividir(num1, num2) {
 }
 
 function operate(operador, num1, num2) {
+    num1 = parseInt(num1);
+    num2 = parseInt(num2);
+
     if (operador === "+") {
         return sumar(num1, num2);
     } else if ( operador === "-") {
@@ -90,14 +94,15 @@ operadorBtn.forEach((button) => {
     button.addEventListener("click", () => {
         numero = display.textContent;
         operador = button.textContent;
-
-        console.log(numero);
-        console.log(operador);
     });
 });
 
 
 // BOTÓN =
+
+equals.addEventListener("click", () => {
+    display.textContent = operate(operador, numero, otroNumero);
+})
 
 // Llamar a operate()
 
