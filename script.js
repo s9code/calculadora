@@ -4,6 +4,7 @@ const numbers = document.querySelectorAll(".number");
 const display = document.querySelector("#display");
 const operadorBtn = document.querySelectorAll(".operator");
 const equals = document.querySelector("#equals");
+const clear = document.querySelector("#clear");
 
 // VARIABLES --------------
 
@@ -12,6 +13,8 @@ let numero;
 let operador;
 
 let otroNumero;
+
+let mostrarResultado = false;
 
 // FUNCIONES --------------
 
@@ -60,7 +63,14 @@ function operate(operador, num1, num2) {
 
 
 numbers.forEach((button) => {
+
     button.addEventListener("click", () => {
+
+        if (mostrarResultado === true) {
+            display.textContent = "";
+            mostrarResultado === false;
+        }
+
         if (operador === undefined) {
             if (display.textContent === "0") {
             display.textContent = button.textContent;
@@ -92,21 +102,48 @@ numbers.forEach((button) => {
 
 operadorBtn.forEach((button) => {
     button.addEventListener("click", () => {
-        numero = display.textContent;
-        operador = button.textContent;
+
+        if (otroNumero === undefined) {
+
+            numero = display.textContent;
+            operador = button.textContent;
+
+        } else {
+
+            let resultado = operate(operador, numero, otroNumero);
+
+            numero = resultado;
+            display.textContent = resultado;
+            otroNumero = undefined;
+            operador = button.textContent;
+
+        }
+
     });
 });
 
-
 // BOTÓN =
-
-equals.addEventListener("click", () => {
-    display.textContent = operate(operador, numero, otroNumero);
-})
 
 // Llamar a operate()
 
 // Mostrar resultado
+
+equals.addEventListener("click", () => {
+    display.textContent = operate(operador, numero, otroNumero);
+    mostrarResultado = true;
+});
+
+// CLEAR
+
+// reiniciar la calculadora
+
+clear.addEventListener("click", () => {
+    display.textContent = "0";
+    numero = undefined;
+    operador = undefined;
+    otroNumero = undefined;
+    mostrarResultado = false;
+});
 
 
 
