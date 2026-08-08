@@ -1,12 +1,12 @@
 // SELECTORES
 
-const numbers = document.querySelectorAll(".number");
-const display = document.querySelector("#display");
-const operadorBtn = document.querySelectorAll(".operator");
-const equals = document.querySelector("#equals");
-const clear = document.querySelector("#clear");
+let numeros = document.querySelectorAll("#numero");
+let display = document.querySelector("#display");
+let operaciones = document.querySelectorAll("#operador");
+let igual = document.querySelector("#igual");
+let clear = document.querySelector("#clear");
 
-// VARIABLES --------------
+// VARIABLES
 
 let numero;
 
@@ -14,136 +14,109 @@ let operador;
 
 let otroNumero;
 
-let mostrarResultado = false;
-
-// FUNCIONES --------------
+// FUNCIONES
 
 function sumar(num1, num2) {
     return num1 + num2;
-}
+};
 
 function restar(num1, num2) {
     return num1 - num2;
-}
+};
 
 function multiplicar(num1, num2) {
     return num1 * num2;
-}
+};
 
 function dividir(num1, num2) {
     return num1 / num2;
-}
-
-function operate(operador, num1, num2) {
-    num1 = parseInt(num1);
-    num2 = parseInt(num2);
-
-    if (operador === "+") {
-        return sumar(num1, num2);
-    } else if ( operador === "-") {
-        return restar (num1, num2)
-    } else if ( operador === "*") {
-        return multiplicar(num1, num2);
-    } else if (operador === "/") {
-        return dividir(num1, num2);
-    }
-        
 };
 
-// EVENTOS --------------
+function operacion (operador, num1, num2) {
+    if (operador === "+") {
+        return (sumar(num1, num2));
+    } else if (operador === "-") {
+        return (restar(num1, num2));
+    } else if (operador === "*") {
+        return (multiplicar(num1,num2));
+    } else if ( operador === "/") {
+        return (dividir(num1, num2));
+    };
+};
 
+// EVENTOS
 
-// BOTONES NUMÉRICOS
+ numeros.forEach((boton) => {
 
-// Mostrar números en pantalla
+    boton.addEventListener("click", () => {
 
-// Construir primer número
+        //display.textContent = boton.textContent;
 
-// Construir segundo número
-
-
-numbers.forEach((button) => {
-
-    button.addEventListener("click", () => {
-
-        if (mostrarResultado === true) {
-            display.textContent = "";
-            mostrarResultado === false;
-        }
-
-        if (operador === undefined) {
-            if (display.textContent === "0") {
-            display.textContent = button.textContent;
-            numero = display.textContent;
-            } else {
-                display.textContent = display.textContent + button.textContent;
-                numero = display.textContent;
-            }
+        if (display.textContent === "0") {
+            display.textContent = boton.textContent;
         } else {
-            if (otroNumero === undefined) {
-                display.textContent = button.textContent;
-                otroNumero = display.textContent;
-            } else {
-                display.textContent = display.textContent + button.textContent;
-                otroNumero = display.textContent;
-            }
-        }
+            display.textContent = display.textContent + boton.textContent;
+        };
+
         
-    });
-});
-
-
-// BOTONES OPERADORES
-
-// Guardar primer número
-
-// Guardar operador
-
-
-operadorBtn.forEach((button) => {
-    button.addEventListener("click", () => {
-
-        if (otroNumero === undefined) {
-
+        if (operador === undefined) {
             numero = display.textContent;
-            operador = button.textContent;
+            numero = Number(numero);
+
+            //console.log(numero);
+            //console.log("numero")
 
         } else {
+            otroNumero = display.textContent;
+            otroNumero = Number(otroNumero);
 
-            let resultado = operate(operador, numero, otroNumero);
 
-            numero = resultado;
-            display.textContent = resultado;
-            otroNumero = undefined;
-            operador = button.textContent;
-
-        }
+            //console.log(otroNumero);
+            //console.log("otroNumero");
+        };
 
     });
+
 });
 
-// BOTÓN =
 
-// Llamar a operate()
+operaciones.forEach((boton) => {
 
-// Mostrar resultado
+    boton.addEventListener("click", () => {
+        
+       display.textContent = "";
+        
+        operador = boton.textContent;
+        //console.log(operador);
 
-equals.addEventListener("click", () => {
-    display.textContent = operate(operador, numero, otroNumero);
-    mostrarResultado = true;
+    });
+
 });
 
-// CLEAR
 
-// reiniciar la calculadora
+igual.addEventListener("click", () => {
+    //console.log(igual.textContent);
+
+     display.textContent = operacion(operador, numero, otroNumero);
+});
 
 clear.addEventListener("click", () => {
+    console.log(clear.textContent);
+
     display.textContent = "0";
-    numero = undefined;
-    operador = undefined;
-    otroNumero = undefined;
-    mostrarResultado = false;
 });
+
+
+// PRUEBAS 
+
+//console.log(sumar(2, 3));
+//console.log(restar(2,2));
+//console.log(multiplicar(3, 3));
+//console.log(dividir(6, 2));
+//console.log(operacion(operador, 3, 3));
+
+
+
 
 
 

@@ -13,7 +13,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.calculator {
+.calculadora {
     width: 340px;
     background: #2d2d2d;
     padding: 20px;
@@ -51,17 +51,17 @@ button:hover {
     transform: scale(1.03);
 }
 
-.number {
+#numero {
     background: #555;
     color: white;
 }
 
-.operator {
+#operador {
     background: orange;
     color: white;
 }
 
-#equals {
+#igual {
     background: #3a86ff;
     color: white;
 }
@@ -71,6 +71,5 @@ button:hover {
     color: white;
 }
 
-.zero {
-    grid-column: span 2;
-}
+
+
